@@ -5,6 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PROJECT_APPS = [
     'app',
+    'user',
 ]
 
 INSTALLED_APPS = PROJECT_APPS + [
@@ -22,6 +23,7 @@ INSTALLED_APPS = PROJECT_APPS + [
     'django_extensions',
     'django_jenkins',
     'raven.contrib.django.raven_compat',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
