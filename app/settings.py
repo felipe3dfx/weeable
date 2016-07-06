@@ -51,13 +51,35 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'app.context_processors.logo_company',
+                'app.context_processors.analytics',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'app.wsgi.application'
+
+AUTH_USER_MODEL = 'user.User'
+
+VALIDATOR_PATH = 'django.contrib.auth.password_validation.{0}'
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': VALIDATOR_PATH.format('UserAttributeSimilarityValidator'),
+    },
+    {
+        'NAME': VALIDATOR_PATH.format('MinimumLengthValidator'),
+        'OPTIONS': {
+            'min_length': 9,
+        }
+    },
+    {
+        'NAME': VALIDATOR_PATH.format('CommonPasswordValidator'),
+    },
+    {
+        'NAME': VALIDATOR_PATH.format('NumericPasswordValidator'),
+    },
+]
 
 DATABASES = {
     'default': {
@@ -91,6 +113,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/uploads/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+DEFAULT_FROM_EMAIL = 'info@weeable.com'
+
+LOGIN_REDIRECT_URL = 'user:user_form'
+
+LOGIN_URL = 'auth_login'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -126,7 +154,11 @@ MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png']
 MARKDOWNX_IMAGE_MAX_SIZE = {'size': (800, 0), 'quality': 90}
 MARKDOWNX_EDITOR_RESIZABLE = True
 
+# django-registration
+ACCOUNT_ACTIVATION_DAYS = 3
+
+# pylint: disable=wrong-import-position,unused-wildcard-import,wildcard-import
 if any(x in sys.argv for x in ('test', 'jenkins')):
-    from app.test_settings import *  # pylint: disable=W0401,W0614
+    from app.test_settings import *
 else:
-    from app.local_settings import *  # pylint: disable=W0401,W0614,E0611,F0401
+    from app.local_settings import *     # pylint: disable=E0611,E0401

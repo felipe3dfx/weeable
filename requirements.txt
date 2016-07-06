@@ -13,3 +13,4 @@ django-jenkins==0.18.1
 django-markdownx==1.6
 django-storages==1.4.1
 django-countries==3.4.1
+django-registration==2.1.2

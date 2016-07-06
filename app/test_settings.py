@@ -14,6 +14,12 @@ DDF_FIELD_FIXTURES = {
     },
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+}
+
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
@@ -29,6 +35,10 @@ JENKINS_TASKS = (
 
 PEP8_RCFILE = 'pep8.rc'
 
+GOOGLE_ANALYTICS_CODE = ''
+TAG_MANAGER_ID = ''
+
+DJANGO_REDIS_IGNORE_EXCEPTIONS = True
 
 class DisableMigrations(object):
     """

@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 
 from django_countries.fields import CountryField
 
@@ -18,7 +19,7 @@ class UserManager(BaseUserManager):
         Creates and saves a User with the given email and password.
         """
         if not email:
-            raise ValueError('Users must have an email address')
+            raise ValueError(_('Users must have an email address'))
 
         user = self.model(
             email=UserManager.normalize_email(email),
@@ -43,38 +44,36 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         unique=True,
-        verbose_name='Correo electrónico',
-        help_text='''Ten en cuenta que al cambiar el correo electrónico tambien
-        cambia la forma de ingresar a la plataforma.''',
+        verbose_name=_('email'),
     )
 
     first_name = models.CharField(
         max_length=128,
-        verbose_name='Nombres',
+        verbose_name=_('first names'),
     )
 
     last_name = models.CharField(
         max_length=128,
-        verbose_name='Apellidos',
+        verbose_name=_('last names'),
     )
 
     birth_date = models.DateField(
         blank=True,
         null=True,
-        verbose_name='Fecha de nacimiento',
+        verbose_name=_('birth date'),
     )
 
     gender = models.PositiveSmallIntegerField(
         blank=True,
         null=True,
         choices=GENDER_CHOICES,
-        verbose_name='Género',
+        verbose_name=_('gender'),
     )
 
     city = models.CharField(
         blank=True,
         max_length=128,
-        verbose_name='Ciudad',
+        verbose_name=_('city'),
     )
 
     country = CountryField()
@@ -83,31 +82,27 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True,
         upload_to=random_upload_path,
-        help_text='300x300 pixels as light as possible.',
+        help_text=_('300x300 pixels as light as possible.'),
     )
 
     is_active = models.BooleanField(
         default=True,
-        verbose_name='Es activo'
+        verbose_name=_('is active')
     )
 
-    is_editor = models.BooleanField(
+    is_staff = models.BooleanField(
         default=False,
-        verbose_name='Es editor'
-    )
-
-    is_admin = models.BooleanField(
-        default=False,
-        verbose_name='Es administrador'
+        verbose_name=_('Staff'),
+        help_text=_('Indicates id can enter the site of administration.'),
     )
 
     date_joined = models.DateTimeField(
-        default=now(),
+        default=now,
     )
 
     updated_at = models.DateTimeField(
         auto_now=True,
-        verbose_name='Fecha de última actualización de datos',
+        verbose_name=_('last updated data'),
     )
 
     objects = UserManager()
@@ -128,23 +123,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
-        return self.is_admin
-
     class Meta:
         ordering = ['first_name', 'last_name']
-        verbose_name = 'usuario'
-        verbose_name_plural = 'usuarios'
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
