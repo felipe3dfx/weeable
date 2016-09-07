@@ -1,16 +1,19 @@
-Django==1.10b1
+Django==1.10.1 # Updated from 1.10b1
 
 boto==2.40
-ipython==5.0.0b3
+ipython==5.1.0 # Updated from 5.0.0b3
 piprot==0.9.6
-psycopg2==2.6.1
-raven==5.20.0
+psycopg2==2.6.2 # Updated from 2.6.1
+huey==1.2.0
+Pillow==3.3.1
+sorl-thumbnail==12.3
+python-social-auth==0.2.21
 
-django-axes==2.0.0
-django-compressor==2.0
-django-extensions==1.6.7
-django-jenkins==0.18.1
-django-markdownx==1.6
-django-storages==1.4.1
-django-countries==3.4.1
-django-registration==2.1.2
+django-axes==2.2.0 # Updated from 2.0.0
+django-compressor==2.1 # Updated from 2.0
+django-extensions==1.7.4 # Updated from 1.6.7
+django-markdownx==1.6.3 # Updated from 1.6
+django-storages==1.5.0 # Updated from 1.4.1
+django-countries==4.0 # Updated from 3.4.1
+django-test-plus==1.0.15
+django-crispy-forms==1.6.0
