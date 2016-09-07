@@ -6,10 +6,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp/
-RUN wget https://nodejs.org/dist/v6.2.2/node-v6.2.2-linux-x64.tar.xz \
-    && tar xvf node-v6.2.2-linux-x64.tar.xz \
-    && cp -rp node-v6.2.2-linux-x64/* /usr/local/ \
-    && rm -rf node-v6.2.2-linux-x64.tar.xz node-v6.2.2-linux-x64/
+RUN wget https://nodejs.org/dist/v6.5.0/node-v6.5.0-linux-x64.tar.xz \
+    && tar xvf node-v6.5.0-linux-x64.tar.xz \
+    && cp -rp node-v6.5.0-linux-x64/* /usr/local/ \
+    && rm -rf node-v6.5.0-linux-x64.tar.xz node-v6.5.0-linux-x64/
 
 WORKDIR /usr/local/lib/
 RUN wget https://github.com/sass/libsass/archive/3.3.6.tar.gz \
